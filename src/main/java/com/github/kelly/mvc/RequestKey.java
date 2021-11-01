@@ -9,4 +9,12 @@ public class RequestKey {
         this.key = key;
         this.httpMethod = httpMethod;
     }
+
+    @Override
+    public String toString() {
+        return "RequestKey{" +
+                "key='" + key + '\'' +
+                ", httpMethod=" + httpMethod +
+                '}';
+    }
 }
