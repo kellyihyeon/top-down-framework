@@ -11,14 +11,10 @@ public class SpringContainer {
     private SpringContainer() {
     }
 
-    public static void run() {
-        getInstance().start();
-    }
-
     private static class SingletonHolder {
+
         private static final Container INSTANCE = new Container();
     }
-
     private static Container getInstance() {
         return SingletonHolder.INSTANCE;
     }
@@ -32,6 +28,9 @@ public class SpringContainer {
             e.printStackTrace();
         }
 
+    }
+    public static void run() {
+        getInstance().start();
     }
 
     public static void get() {

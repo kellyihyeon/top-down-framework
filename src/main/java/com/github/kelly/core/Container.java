@@ -1,16 +1,12 @@
 package com.github.kelly.core;
 
 import com.github.kelly.mvc.*;
-import org.eclipse.jetty.server.Connector;
-import org.eclipse.jetty.server.RequestLog;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.ServerConnector;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
 import org.reflections.Reflections;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.lang.reflect.TypeVariable;
 import java.util.*;
 
 public class Container {
@@ -19,7 +15,7 @@ public class Container {
     private int port = 8080;
 
     private final Map<String, Set<Class<?>>> containerMap = new HashMap<>();
-    private final Map<RequestKey, String> handlerMap = new HashMap<>();
+//    private final Map<RequestKey, String> handlerMap = new HashMap<>();
     private final Map<RequestKey, RequestHandler> handlerMap2 = new HashMap<>();
 
 
@@ -38,14 +34,13 @@ public class Container {
         final Set<Class<?>> controllerBeans = containerMap.get("controller");
         for (Class<?> controllerBean : controllerBeans) {
             System.out.println("controllerBean.getName() = " + controllerBean.getName());
-            final Object instance = controllerBean.getDeclaredConstructor().newInstance();
+
             final Method[] methods = controllerBean.getMethods();
             for (Method method : methods) {
                 if (method.isAnnotationPresent(RequestMapping.class)) {
                     final RequestMapping requestMapping = method.getAnnotation(RequestMapping.class);
-
                     final RequestKey requestKey = new RequestKey(requestMapping.value(), requestMapping.method());
-                    RequestHandler requestHandler = context -> context.response().execute(method, instance);
+                    RequestHandler requestHandler = context -> context.response().execute(method, controllerBean);
                     handlerMap2.put(requestKey, requestHandler);
                 }
                 
@@ -61,12 +56,16 @@ public class Container {
         // server start
         this.server = new Server(port);
 
-        final ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);    // 1
+//        final ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);    // 1
+//
+//        contextHandler.setContextPath("/hello");
+//        server.setHandler(contextHandler);
+//
+//        contextHandler.addServlet(new ServletHolder(new HelloServlet()), "/*");\
 
-        contextHandler.setContextPath("/hello");
-        server.setHandler(contextHandler);
+        final HttpHandler httpHandler = new HttpHandler(handlerMap2);
+        this.server.setHandler(httpHandler);
 
-        contextHandler.addServlet(new ServletHolder(new HelloServlet()), "/*");
 
         try {
             this.server.start();

@@ -13,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 public class TestController {
 
     @RequestMapping(value = "/hello", method = HttpMethod.GET)
-    public void sayHello(HttpServletRequest request, HttpServletResponse response) {
+    public void sayHello(HttpServletResponse response) {
 
         String html =
                 "<html lang=\"en\">\n" +
@@ -41,5 +41,10 @@ public class TestController {
     @RequestMapping(value = "/signUp", method = HttpMethod.POST)
     public void signUp(HttpServletRequest request, HttpServletResponse response) {
         System.out.println("signUp method executed.");
+    }
+
+    @RequestMapping(value = "/welcome", method = HttpMethod.GET)
+    public void welcome() {
+        System.out.println("welcome method executed.");
     }
 }

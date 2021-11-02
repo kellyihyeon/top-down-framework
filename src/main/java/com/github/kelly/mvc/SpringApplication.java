@@ -21,8 +21,8 @@ public class SpringApplication {    // spring container ?
         // 스캔
         SpringContainer.scan(primarySource);
 
-        // 등록
-//        SpringContainer.register();
+        // 서블릿 등록
+
 
         SpringContainer.run();
 

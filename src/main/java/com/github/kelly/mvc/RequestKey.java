@@ -7,8 +7,8 @@ public class RequestKey {
     private final String path;
     private final HttpMethod httpMethod;
 
-    public RequestKey(String key, HttpMethod httpMethod) {
-        this.path = key;
+    public RequestKey(String path, HttpMethod httpMethod) {
+        this.path = path;
         this.httpMethod = httpMethod;
     }
 
@@ -28,7 +28,7 @@ public class RequestKey {
     @Override
     public String toString() {
         return "RequestKey{" +
-                "key='" + path + '\'' +
+                "path='" + path + '\'' +
                 ", httpMethod=" + httpMethod +
                 '}';
     }
