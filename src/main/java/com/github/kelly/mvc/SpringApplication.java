@@ -1,6 +1,9 @@
 package com.github.kelly.mvc;
 
 import com.github.kelly.core.SpringContainer;
+import jakarta.servlet.http.HttpServletRequest;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.ServletHandler;
 
 // Spring Framework
 public class SpringApplication {    // spring container ?
@@ -18,7 +21,10 @@ public class SpringApplication {    // spring container ?
         // 스캔
         SpringContainer.scan(primarySource);
 
-        SpringContainer.get();
+        // 등록
+//        SpringContainer.register();
+
+        SpringContainer.run();
 
 
     }
