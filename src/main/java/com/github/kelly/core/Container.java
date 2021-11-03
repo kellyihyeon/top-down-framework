@@ -14,7 +14,7 @@ public class Container {
 
 
     public void configurePort(int port) {
-        this.port = port;   // 12345
+        this.port = port;
     }
 
     public void getComponentScan(Class<?> primarySource) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {

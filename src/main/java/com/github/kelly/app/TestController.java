@@ -14,13 +14,14 @@ import java.util.Map;
 @Controller
 public class TestController {
 
-    private final Map<String, String> memberRepository = new HashMap<>();
-
+    // static 으로 만들지 않으면 key 로 찾았을 때 null
+    private static final Map<String, String> memberRepository = new HashMap<>();
 
 
     @RequestMapping(value = "/hello", method = HttpMethod.GET)
-    public void sayHello(HttpServletRequest request, HttpServletResponse response) {
-
+    public void sayHello(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        // controller 로 들어오고, view 를 호출해주는 쪽으로 보내기
+//        DispatcherServlet.deliverToView(request, response);
         String html =
                 "<html lang=\"en\">\n" +
                 "<head>\n" +

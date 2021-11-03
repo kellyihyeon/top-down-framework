@@ -1,8 +1,11 @@
 package com.github.kelly.mvc;
 
+import com.github.kelly.core.ComponentScanner;
 import jakarta.servlet.http.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 
@@ -18,7 +21,6 @@ public class DispatcherServlet {
 
     // run
     public void doDispatch(HttpServletRequest request, HttpServletResponse response) {
-
         final String path = request.getRequestURI();
         final HttpMethod httpMethod = HttpMethod.valueOf(request.getMethod());
 
@@ -43,6 +45,33 @@ public class DispatcherServlet {
             }
         }
 
+
     }
+
+    public static void deliverToView(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        // uri = /hello, method = GET
+        final String uriWithoutSlash = request.getRequestURI().replace("/", "");
+        System.out.println("uriWithoutSlash = " + uriWithoutSlash);
+
+        final List<String> staticFileList = ComponentScanner.staticFileList;
+        //staticFileList = [hello.html, login.html, signup.html, test.html]
+        for (String fileFullName : staticFileList) {
+            final String[] stringsBySplit = fileFullName.split("\\.");
+            final String fileName = stringsBySplit[0];
+            System.out.println("fileName = " + fileName);
+
+            if (uriWithoutSlash.equals(fileName)) {
+//                String path = "/src/main/resources/static/" + fileFullName;
+                response.setStatus(302);
+                // Location: http://localhost:12345/src/main/resources/static/hello.html
+                response.setHeader("Location", fileFullName);
+//                response.sendRedirect("/src/main/resources/static/" + fileFullName);
+                // 아......... request 로 반복되네 ...
+            }
+        }
+
+
+    }
+
 
 }

@@ -6,16 +6,17 @@ import com.github.kelly.mvc.RequestMapping;
 import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.File;
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 // base package 기준 모든 어노테이션 component scan 하기
 public class ComponentScanner {
 
     private final ComponentScan componentScan;
     private Reflections reflections;
+    public static List<String> staticFileList = new ArrayList<>();
 
     private static final Map<String, Set<Class<?>>> scannerMap = new HashMap<>();
     private final Logger logger = LoggerFactory.getLogger(ComponentScanner.class);
@@ -31,6 +32,18 @@ public class ComponentScanner {
         // 2. service
         // 3. repository
         controllerScan();
+        staticFileScan();
+    }
+
+    private void staticFileScan() {
+
+        File[] files = new File("src/main/resources/static").listFiles();
+        for (File file : files) {
+            if (file.isFile()) {
+                staticFileList.add(file.getName());
+            }
+        }
+        System.out.println("staticFileList = " + staticFileList);
     }
 
     private void controllerScan() {
