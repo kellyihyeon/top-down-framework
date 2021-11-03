@@ -12,6 +12,7 @@ public class SpringContainer {
         // 인스턴스 생성 막기
     }
 
+
     private static class SingletonHolder {
         private static final Container INSTANCE = new Container();
     }
@@ -21,7 +22,7 @@ public class SpringContainer {
         return SingletonHolder.INSTANCE;
     }
 
-    // 우선 여기에다가 코드 정리 다 해놓음
+
     public static void scan(Class<?> primarySource) {
         try {
             getInstance().getComponentScan(primarySource);
@@ -31,14 +32,16 @@ public class SpringContainer {
         }
 
     }
+
+    public static void port(int port) {
+        getInstance().configurePort(port);
+    }
+
+
     public static void run() {
         getInstance().start();
     }
 
-    public static void get() {
-//        getInstance().addHandler();
-
-    }
 
 
 }

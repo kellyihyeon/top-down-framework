@@ -50,6 +50,7 @@ public class ComponentScanner {
                     final RequestKey requestKey = new RequestKey(requestMapping.value(), requestMapping.method());
 
                     RequestHandler requestHandler =
+                            // void handle(Context context);
                             context -> context.response().execute(method, controllerClass);
                     handlerMap.put(requestKey, requestHandler);
                 }

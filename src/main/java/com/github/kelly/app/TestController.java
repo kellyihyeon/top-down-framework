@@ -14,12 +14,12 @@ import java.util.Map;
 @Controller
 public class TestController {
 
-    private static final Map<String, String> memberRepository = new HashMap<>();
+    private final Map<String, String> memberRepository = new HashMap<>();
 
 
 
     @RequestMapping(value = "/hello", method = HttpMethod.GET)
-    public void sayHello(HttpServletResponse response) {
+    public void sayHello(HttpServletRequest request, HttpServletResponse response) {
 
         String html =
                 "<html lang=\"en\">\n" +
@@ -45,7 +45,7 @@ public class TestController {
     }
 
     @RequestMapping(value = "/signUp", method = HttpMethod.GET)
-    public void signUpPage(HttpServletResponse response) {
+    public void signUpPage(HttpServletRequest request, HttpServletResponse response) {
         String html =
                 "<!DOCTYPE html>\n" +
                         "<html lang=\"en\">\n" +
@@ -109,7 +109,7 @@ public class TestController {
 
 
     @RequestMapping(value = "/login", method = HttpMethod.GET)
-    public void loginPage(HttpServletResponse response) {
+    public void loginPage(HttpServletRequest request, HttpServletResponse response) {
         String html =
                 "<!DOCTYPE html>\n" +
                         "<html lang=\"en\">\n" +

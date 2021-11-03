@@ -24,7 +24,7 @@ public class HttpHandler extends SessionHandler {
     public void doHandle(String target,
                          Request baseRequest,
                          HttpServletRequest request,
-                         HttpServletResponse response) throws IOException, ServletException
+                         HttpServletResponse response)
     {
         dispatcherServlet.doDispatch(request, response);
         baseRequest.setHandled(true);

@@ -8,10 +8,14 @@ import java.util.*;
 public class Container {
 
     private Server server;
-    private int port = 8080;
+    private int port = -1;
 
     private final Map<RequestKey, RequestHandler> handlerMap = new HashMap<>();
 
+
+    public void configurePort(int port) {
+        this.port = port;   // 12345
+    }
 
     public void getComponentScan(Class<?> primarySource) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         ComponentScanner scanner = new ComponentScanner(primarySource);
@@ -19,9 +23,15 @@ public class Container {
         scanner.addKeyAndHandlerToMap(handlerMap);
     }
 
-    // happy path
+
     public void start() {
-        this.server = new Server(port);
+
+        int serverPort = 8080;
+        if (port >= 1) {
+            serverPort = port;
+        }
+        this.server = new Server(serverPort);
+
         final HttpHandler httpHandler = new HttpHandler(handlerMap);
         this.server.setHandler(httpHandler);
 
