@@ -16,7 +16,9 @@ public class TestController {
 
     private static final Map<String, String> memberRepository = new HashMap<>();
 
-        @RequestMapping(value = "/hello", method = HttpMethod.GET)
+
+
+    @RequestMapping(value = "/hello", method = HttpMethod.GET)
     public void sayHello(HttpServletResponse response) {
 
         String html =

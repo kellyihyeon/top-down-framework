@@ -9,12 +9,14 @@ import java.lang.reflect.InvocationTargetException;
 public class SpringContainer {
 
     private SpringContainer() {
+        // 인스턴스 생성 막기
     }
 
     private static class SingletonHolder {
-
         private static final Container INSTANCE = new Container();
     }
+
+
     private static Container getInstance() {
         return SingletonHolder.INSTANCE;
     }

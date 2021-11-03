@@ -8,7 +8,6 @@ import com.github.kelly.mvc.SpringApplication;
 )
 public class Application {
 
-    // Goal: Spring Framework 만들기
     public static void main(String[] args) {
         SpringApplication.run(Application.class);
     }
