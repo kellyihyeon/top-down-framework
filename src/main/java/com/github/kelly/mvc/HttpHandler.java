@@ -11,12 +11,12 @@ import java.util.Map;
 
 public class HttpHandler extends SessionHandler {
 
-    DispatcherServlet dispatcherServlet;
-    private final Map<RequestKey, RequestHandler> handlerMap2;
+    private final DispatcherServlet dispatcherServlet;
+    private final Map<RequestKey, RequestHandler> handlerMap;
 
-    public HttpHandler(Map<RequestKey, RequestHandler> handlerMap2) {
-        this.handlerMap2 = handlerMap2;
-        this.dispatcherServlet = new DispatcherServlet(handlerMap2);
+    public HttpHandler(Map<RequestKey, RequestHandler> handlerMap) {
+        this.handlerMap = handlerMap;
+        this.dispatcherServlet = new DispatcherServlet(handlerMap);
     }
 
 

@@ -1,16 +1,23 @@
 package com.github.kelly.mvc;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class MvcResponse implements Response {
 
+    private final HttpServletRequest requestWrapper;
     private final HttpServletResponse responseWrapper;
 
-    public MvcResponse(HttpServletResponse responseWrapper) {
+    public MvcResponse(HttpServletRequest requestWrapper, HttpServletResponse responseWrapper) {
+        this.requestWrapper = requestWrapper;
         this.responseWrapper = responseWrapper;
     }
+
+    //    public MvcResponse(HttpServletResponse responseWrapper) {
+//        this.responseWrapper = responseWrapper;
+//    }
 
     @Override
     public void execute(Method method, Class<?> obj) {
@@ -23,6 +30,10 @@ public class MvcResponse implements Response {
             } else if (method.getParameterCount() == 1) {
                 final Object newInstance = obj.getConstructor().newInstance();
                 final Object[] parametersArray = {responseWrapper};
+                method.invoke(newInstance, parametersArray);    // parameter 가 response 인 경우
+            } else {
+                final Object newInstance = obj.getConstructor().newInstance();
+                final Object[] parametersArray = {requestWrapper, responseWrapper};
                 method.invoke(newInstance, parametersArray);
             }
 

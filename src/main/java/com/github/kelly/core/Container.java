@@ -5,8 +5,6 @@ import org.eclipse.jetty.server.Server;
 import org.reflections.Reflections;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
-import java.lang.reflect.TypeVariable;
 import java.util.*;
 
 public class Container {
@@ -15,8 +13,7 @@ public class Container {
     private int port = 8080;
 
     private final Map<String, Set<Class<?>>> containerMap = new HashMap<>();
-//    private final Map<RequestKey, String> handlerMap = new HashMap<>();
-    private final Map<RequestKey, RequestHandler> handlerMap2 = new HashMap<>();
+    private final Map<RequestKey, RequestHandler> handlerMap = new HashMap<>();
 
 
     public void getComponentScan(Class<?> primarySource) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
@@ -41,7 +38,7 @@ public class Container {
                     final RequestMapping requestMapping = method.getAnnotation(RequestMapping.class);
                     final RequestKey requestKey = new RequestKey(requestMapping.value(), requestMapping.method());
                     RequestHandler requestHandler = context -> context.response().execute(method, controllerBean);
-                    handlerMap2.put(requestKey, requestHandler);
+                    handlerMap.put(requestKey, requestHandler);
                 }
                 
             }
@@ -53,19 +50,9 @@ public class Container {
     // happy path
     public void start() {
 
-        // server start
         this.server = new Server(port);
-
-//        final ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);    // 1
-//
-//        contextHandler.setContextPath("/hello");
-//        server.setHandler(contextHandler);
-//
-//        contextHandler.addServlet(new ServletHolder(new HelloServlet()), "/*");\
-
-        final HttpHandler httpHandler = new HttpHandler(handlerMap2);
+        final HttpHandler httpHandler = new HttpHandler(handlerMap);
         this.server.setHandler(httpHandler);
-
 
         try {
             this.server.start();

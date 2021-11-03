@@ -13,5 +13,9 @@ public class MvcRequest implements Request {
     @Override
     public void deliver(Object obj) {
         // add later~~
+        final String id = requestWrapper.getParameter("id");
+        final String password = requestWrapper.getParameter("password");
+        System.out.println("id = " + id);
+        System.out.println("password = " + password);
     }
 }
