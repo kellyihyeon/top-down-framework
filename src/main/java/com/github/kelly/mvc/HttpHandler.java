@@ -1,12 +1,9 @@
 package com.github.kelly.mvc;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.session.SessionHandler;
-
-import java.io.IOException;
 import java.util.Map;
 
 public class HttpHandler extends SessionHandler {
@@ -17,6 +14,7 @@ public class HttpHandler extends SessionHandler {
     public HttpHandler(Map<RequestKey, RequestHandler> handlerMap) {
         this.handlerMap = handlerMap;
         this.dispatcherServlet = new DispatcherServlet(handlerMap);
+//        this.dispatcherServlet = new DispatcherServlet();
     }
 
 
@@ -27,6 +25,7 @@ public class HttpHandler extends SessionHandler {
                          HttpServletResponse response)
     {
         dispatcherServlet.doDispatch(request, response);
+//        dispatcherServlet.doMapping(request, response);
         baseRequest.setHandled(true);
 
     }

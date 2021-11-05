@@ -17,6 +17,10 @@ public class Container {
         this.port = port;
     }
 
+    public Map<RequestKey, RequestHandler> getHandlerMap() {
+        return handlerMap;
+    }
+
     public void getComponentScan(Class<?> primarySource) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         ComponentScanner scanner = new ComponentScanner(primarySource);
         scanner.scan();

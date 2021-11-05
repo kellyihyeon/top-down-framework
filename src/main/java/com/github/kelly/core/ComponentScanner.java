@@ -46,6 +46,7 @@ public class ComponentScanner {
         System.out.println("staticFileList = " + staticFileList);
     }
 
+    // 사용자 정의 컨트롤러 스캔
     private void controllerScan() {
         final Set<Class<?>> controllerScannedClazz = reflections.getTypesAnnotatedWith(Controller.class);
         scannerMap.put("controller", controllerScannedClazz);
@@ -53,11 +54,11 @@ public class ComponentScanner {
 
 
     public void addKeyAndHandlerToMap(Map<RequestKey, RequestHandler> handlerMap) {
-        // @RequestMapping 정보 뽑기
         for (Class<?> controllerClass : scannerMap.get("controller")) {
             logger.info("controllerClass.getName() = {}", controllerClass.getName());
 
             for (Method method : controllerClass.getMethods()) {
+                // @RequestMapping 정보 뽑기
                 if (method.isAnnotationPresent(RequestMapping.class)) {
                     final RequestMapping requestMapping = method.getAnnotation(RequestMapping.class);
                     final RequestKey requestKey = new RequestKey(requestMapping.value(), requestMapping.method());

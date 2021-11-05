@@ -1,6 +1,10 @@
 package com.github.kelly.core;
 
+import com.github.kelly.mvc.RequestHandler;
+import com.github.kelly.mvc.RequestKey;
+
 import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
 
 /**
  * wrapper class
@@ -20,6 +24,10 @@ public class SpringContainer {
 
     private static Container getInstance() {
         return SingletonHolder.INSTANCE;
+    }
+
+    public static Map<RequestKey, RequestHandler> handlerMap() {
+        return getInstance().getHandlerMap();
     }
 
 

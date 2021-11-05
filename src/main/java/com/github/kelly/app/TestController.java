@@ -14,7 +14,6 @@ import java.util.Map;
 @Controller
 public class TestController {
 
-    // static 으로 만들지 않으면 key 로 찾았을 때 null
     private static final Map<String, String> memberRepository = new HashMap<>();
 
 
@@ -22,27 +21,28 @@ public class TestController {
     public void sayHello(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // controller 로 들어오고, view 를 호출해주는 쪽으로 보내기
 //        DispatcherServlet.deliverToView(request, response);
-        String html =
-                "<html lang=\"en\">\n" +
-                "<head>\n" +
-                "    <meta charset=\"UTF-8\">\n" +
-                "    <title>Hello Page</title>\n" +
-                "</head>\n" +
-                "<body>\n" +
-                "    <h1>Welcome, anonymous!</h1>\n" +
-                "</body>\n" +
-                "</html>";
-
-        response.setStatus(200);
-        response.setContentType("text/html");
-
-        try {
-            OutputStream os = response.getOutputStream();
-            os.write(html.getBytes(StandardCharsets.UTF_8));
-            os.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        String html =
+//                "<html lang=\"en\">\n" +
+//                "<head>\n" +
+//                "    <meta charset=\"UTF-8\">\n" +
+//                "    <title>Hello Page</title>\n" +
+//                "</head>\n" +
+//                "<body>\n" +
+//                "    <h1>Welcome, anonymous!</h1>\n" +
+//                "</body>\n" +
+//                "</html>";
+//
+//        response.setStatus(200);
+//        response.setContentType("text/html");
+//
+//        try {
+//            OutputStream os = response.getOutputStream();
+//            os.write(html.getBytes(StandardCharsets.UTF_8));
+//            os.flush();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        response.sendRedirect("hello.html");
     }
 
     @RequestMapping(value = "/signUp", method = HttpMethod.GET)

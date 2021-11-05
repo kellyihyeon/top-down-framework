@@ -36,4 +36,10 @@ public class MethodExecutor implements Response {
 
     }
 
+    // Temporary method for test
+    @Override
+    public void error() {
+        System.out.println("NOT FOUND PAGE ~~!");
+    }
+
 }
