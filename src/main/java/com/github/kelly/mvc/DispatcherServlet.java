@@ -16,7 +16,7 @@ public class DispatcherServlet {
     private Map<RequestKey, RequestHandler> handlerMap; //
     private final Logger logger = LoggerFactory.getLogger(DispatcherServlet.class);
 
-    private final List<Resolver> resolvers = new ArrayList<>();
+    private final List<Resolver> resolvers = new ArrayList<>(); // 활용을 어떻게 할 것인지
 
 
     public DispatcherServlet(Map<RequestKey, RequestHandler> handlerMap) {
