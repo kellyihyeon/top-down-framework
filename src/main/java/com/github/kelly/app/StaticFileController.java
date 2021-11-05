@@ -22,8 +22,8 @@ public class StaticFileController {
     }
 
     public void run(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
         // /hello.html
+        System.out.println("StaticFileController - run 메소드 진입");
         final String uri = request.getRequestURI();
         final String filepath = STATIC_FILE_PATH + uri;
         // mime type

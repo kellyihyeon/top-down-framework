@@ -2,6 +2,7 @@ package com.github.kelly.mvc;
 
 import com.github.kelly.core.ComponentScanner;
 import jakarta.servlet.http.*;
+import org.eclipse.jetty.server.Authentication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.io.IOException;
@@ -64,11 +65,32 @@ public class DispatcherServlet {
 
     }
 
-    public RequestHandler doMapping(HttpServletRequest request, HttpServletResponse response) {
-        for (Resolver resolver : resolvers) {
-            // happy path
-            return resolver.dispatch(request, response);
+    public void doMapping(HttpServletRequest request, HttpServletResponse response) {
+        RequestHandler requestHandler = null;
+
+//        if (request.getRequestURI().equals("/favicon.ico")) {
+//            throw new IllegalArgumentException("/favicon.ico uri.");
+//        }
+        // handler 1 = staticFile 처리 담당
+        if (request.getRequestURI().contains(".")) {
+            final StaticFileResolver staticFileResolver = new StaticFileResolver();
+            requestHandler = staticFileResolver.dispatch(request, response);
         }
-        return context -> context.response().error();   // temporary method
+        // handler 2 = userDefine 처리 담당
+        else {
+            final UserDefineResolver userDefineResolver = new UserDefineResolver();
+            requestHandler = userDefineResolver.dispatch(request, response);
+        }
+
+
+        // handler 실행하는 메서드 분리
+        final HttpServletRequestWrapper requestWrapper = new HttpServletRequestWrapper(request);
+        final HttpServletResponseWrapper responseWrapper = new HttpServletResponseWrapper(response);
+
+        final MethodExecutor methodExecutor = new MethodExecutor(requestWrapper, responseWrapper);
+        final MvcContext context = new MvcContext(methodExecutor);
+        if (requestHandler != null) {
+            requestHandler.handle(context);
+        }
     }
 }

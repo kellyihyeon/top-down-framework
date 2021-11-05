@@ -13,8 +13,8 @@ public class HttpHandler extends SessionHandler {
 
     public HttpHandler(Map<RequestKey, RequestHandler> handlerMap) {
         this.handlerMap = handlerMap;
-        this.dispatcherServlet = new DispatcherServlet(handlerMap);
-//        this.dispatcherServlet = new DispatcherServlet();
+//        this.dispatcherServlet = new DispatcherServlet(handlerMap);
+        this.dispatcherServlet = new DispatcherServlet();
     }
 
 
@@ -24,8 +24,8 @@ public class HttpHandler extends SessionHandler {
                          HttpServletRequest request,
                          HttpServletResponse response)
     {
-        dispatcherServlet.doDispatch(request, response);
-//        dispatcherServlet.doMapping(request, response);
+//        dispatcherServlet.doDispatch(request, response);
+        dispatcherServlet.doMapping(request, response);
         baseRequest.setHandled(true);
 
     }

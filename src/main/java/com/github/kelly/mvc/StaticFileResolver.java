@@ -11,8 +11,11 @@ import java.lang.reflect.Method;
 public class StaticFileResolver implements Resolver{
 
     private final String STATIC_FILE_PATH = "static";
-    private static final StaticFileController staticFileController = new StaticFileController();   //
+    private final StaticFileController staticFileController = new StaticFileController();   //
     private final Logger logger = LoggerFactory.getLogger(StaticFileResolver.class);
+
+
+
 
     public boolean supports() {
         //
@@ -23,13 +26,17 @@ public class StaticFileResolver implements Resolver{
     @Override
     public RequestHandler dispatch(HttpServletRequest request, HttpServletResponse response) {
         RequestHandler requestHandler = null;
+        final Class<?> thisClass = staticFileController.getClass();
+
         for (Method method : staticFileController.getClass().getMethods()) {
             if (method.getName().equals("run")) {
                 logger.info("StaticFileResolver.class - staticFileController 의 method.getName() = {}", method.getName());
                 requestHandler =
-                        context -> context.response().execute(method, staticFileController.getClass());
+                        context -> context.response().execute(method, thisClass);
             }
         }
+        System.out.println("requestHandler = " + requestHandler);
+
         return requestHandler;
     }
 }
