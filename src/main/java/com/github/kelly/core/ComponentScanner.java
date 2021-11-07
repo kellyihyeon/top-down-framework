@@ -28,23 +28,9 @@ public class ComponentScanner {
     }
 
     public void scan() {
-        // 1. controller -> @Controller 분리 -> @RequestMapping (class, method 에 붙음)
-        // 2. service
-        // 3. repository
         controllerScan();
-        staticFileScan();
     }
 
-    private void staticFileScan() {
-
-        File[] files = new File("src/main/resources/static").listFiles();
-        for (File file : files) {
-            if (file.isFile()) {
-                staticFileList.add(file.getName());
-            }
-        }
-        System.out.println("staticFileList = " + staticFileList);
-    }
 
     // 사용자 정의 컨트롤러 스캔
     private void controllerScan() {
@@ -53,6 +39,7 @@ public class ComponentScanner {
     }
 
 
+    // 책임이 어디에?
     public void addKeyAndHandlerToMap(Map<RequestKey, RequestHandler> handlerMap) {
         for (Class<?> controllerClass : scannerMap.get("controller")) {
             logger.info("controllerClass.getName() = {}", controllerClass.getName());

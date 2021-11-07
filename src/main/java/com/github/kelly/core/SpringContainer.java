@@ -26,6 +26,7 @@ public class SpringContainer {
         return SingletonHolder.INSTANCE;
     }
 
+    // 얘를 어떡하냐
     public static Map<RequestKey, RequestHandler> handlerMap() {
         return getInstance().getHandlerMap();
     }

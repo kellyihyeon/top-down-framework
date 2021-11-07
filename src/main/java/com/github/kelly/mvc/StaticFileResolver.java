@@ -5,22 +5,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.lang.reflect.Method;
 
 public class StaticFileResolver implements Resolver{
 
-    private final String STATIC_FILE_PATH = "static";
+
     private final StaticFileController staticFileController = new StaticFileController();   //
     private final Logger logger = LoggerFactory.getLogger(StaticFileResolver.class);
 
-
-
-
-    public boolean supports() {
-        //
-        return true;
-    }
 
 
     @Override

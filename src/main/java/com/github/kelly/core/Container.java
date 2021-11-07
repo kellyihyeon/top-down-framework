@@ -36,7 +36,7 @@ public class Container {
         }
         this.server = new Server(serverPort);
 
-        final HttpHandler httpHandler = new HttpHandler(handlerMap);
+        final HttpHandler httpHandler = new HttpHandler();
         this.server.setHandler(httpHandler);
 
         try {

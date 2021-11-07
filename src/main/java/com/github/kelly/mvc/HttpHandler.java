@@ -4,16 +4,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.session.SessionHandler;
-import java.util.Map;
+
 
 public class HttpHandler extends SessionHandler {
 
     private final DispatcherServlet dispatcherServlet;
-    private final Map<RequestKey, RequestHandler> handlerMap;
 
-    public HttpHandler(Map<RequestKey, RequestHandler> handlerMap) {
-        this.handlerMap = handlerMap;
-//        this.dispatcherServlet = new DispatcherServlet(handlerMap);
+
+
+    public HttpHandler() {
         this.dispatcherServlet = new DispatcherServlet();
     }
 
@@ -24,8 +23,7 @@ public class HttpHandler extends SessionHandler {
                          HttpServletRequest request,
                          HttpServletResponse response)
     {
-//        dispatcherServlet.doDispatch(request, response);
-        dispatcherServlet.doMapping(request, response);
+        dispatcherServlet.doDispatch(request, response);
         baseRequest.setHandled(true);
 
     }
