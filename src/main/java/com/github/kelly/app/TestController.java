@@ -3,6 +3,8 @@ package com.github.kelly.app;
 import com.github.kelly.core.Controller;
 import com.github.kelly.web.HttpMethod;
 import com.github.kelly.web.RequestMapping;
+import com.github.kelly.web.ui.Model;
+import com.github.kelly.web.ui.ModelAndView;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -15,6 +17,27 @@ import java.util.Map;
 public class TestController {
 
     private static final Map<String, String> memberRepository = new HashMap<>();
+
+    @RequestMapping("/string")
+    public String outString(Model model) {
+        // String attributeName, Object attributeValue
+        model.addAttribute("message", "this is object value");
+        model.addAttribute("myName", "Han So Hui");
+        model.addAttribute("details", "in Netflix");
+        return "string";
+    }
+
+    @RequestMapping("/toModelAndView")
+    public ModelAndView deliverModelAndView() {
+        final ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.setViewName("view");
+        modelAndView.addObject("title", "Framework");
+        modelAndView.addObject("target", "Spring");
+        modelAndView.addObject("message", "It's hard :(...");
+
+        return modelAndView;
+    }
 
 
     @RequestMapping(value = "/hello", method = HttpMethod.GET)

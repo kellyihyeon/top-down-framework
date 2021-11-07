@@ -10,16 +10,22 @@ repositories {
 }
 
 dependencies {
+    // server
     implementation 'org.eclipse.jetty:jetty-servlet:11.0.7'
     implementation 'org.eclipse.jetty:jetty-server:11.0.7'
 
     implementation 'org.slf4j:slf4j-api:2.0.0-alpha5'
     implementation 'org.slf4j:slf4j-simple:2.0.0-alpha5'
 
+    // reflections
     implementation 'org.reflections:reflections:0.10.2'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+
+    // template engine
+    implementation 'com.samskivert:jmustache:1.15'
+
 }
 
 test {
