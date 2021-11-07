@@ -1,5 +1,6 @@
 package com.github.kelly.web;
 
+import com.github.kelly.core.HttpMethod;
 import java.util.Objects;
 
 public class RequestKey {

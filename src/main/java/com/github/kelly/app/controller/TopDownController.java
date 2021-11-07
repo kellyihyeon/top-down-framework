@@ -1,4 +1,4 @@
-package com.github.kelly.app;
+package com.github.kelly.app.controller;
 
 import com.github.kelly.core.Controller;
 

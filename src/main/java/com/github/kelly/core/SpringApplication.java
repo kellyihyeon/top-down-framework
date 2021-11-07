@@ -1,6 +1,4 @@
-package com.github.kelly.web;
-
-import com.github.kelly.core.SpringContainer;
+package com.github.kelly.core;
 
 /**
  * 1. 스캔

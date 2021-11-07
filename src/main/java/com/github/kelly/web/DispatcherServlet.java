@@ -5,8 +5,6 @@ import jakarta.servlet.http.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-
 public class DispatcherServlet {
 
 
@@ -35,6 +33,7 @@ public class DispatcherServlet {
         }
 
         // handler 실행하는 담당
+        // >> 응답 주는 class 부터 쓸 것만 남기고 리팩토링 할 것
         final HttpServletRequestWrapper requestWrapper = new HttpServletRequestWrapper(request);
         final HttpServletResponseWrapper responseWrapper = new HttpServletResponseWrapper(response);
 

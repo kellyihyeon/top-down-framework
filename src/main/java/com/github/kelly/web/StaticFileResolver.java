@@ -1,6 +1,6 @@
 package com.github.kelly.web;
 
-import com.github.kelly.app.StaticFileController;
+import com.github.kelly.app.controller.StaticFileController;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;

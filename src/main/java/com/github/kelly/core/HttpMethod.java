@@ -1,4 +1,4 @@
-package com.github.kelly.web;
+package com.github.kelly.core;
 
 public enum HttpMethod {
     GET, POST
