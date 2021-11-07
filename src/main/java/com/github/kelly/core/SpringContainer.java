@@ -1,7 +1,7 @@
 package com.github.kelly.core;
 
-import com.github.kelly.mvc.RequestHandler;
-import com.github.kelly.mvc.RequestKey;
+import com.github.kelly.web.RequestHandler;
+import com.github.kelly.web.RequestKey;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;

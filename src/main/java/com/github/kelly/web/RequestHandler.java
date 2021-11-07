@@ -1,4 +1,4 @@
-package com.github.kelly.mvc;
+package com.github.kelly.web;
 
 @FunctionalInterface
 public interface RequestHandler {

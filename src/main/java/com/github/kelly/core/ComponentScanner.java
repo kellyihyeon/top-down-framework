@@ -1,13 +1,12 @@
 package com.github.kelly.core;
 
-import com.github.kelly.mvc.RequestHandler;
-import com.github.kelly.mvc.RequestKey;
-import com.github.kelly.mvc.RequestMapping;
+import com.github.kelly.web.RequestHandler;
+import com.github.kelly.web.RequestKey;
+import com.github.kelly.web.RequestMapping;
 import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.lang.reflect.Method;
 import java.util.*;
 
@@ -16,7 +15,7 @@ public class ComponentScanner {
 
     private final ComponentScan componentScan;
     private Reflections reflections;
-    public static List<String> staticFileList = new ArrayList<>();
+//    public static List<String> staticFileList = new ArrayList<>();
 
     private static final Map<String, Set<Class<?>>> scannerMap = new HashMap<>();
     private final Logger logger = LoggerFactory.getLogger(ComponentScanner.class);

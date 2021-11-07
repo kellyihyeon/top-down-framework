@@ -1,8 +1,8 @@
 package com.github.kelly.app;
 
 import com.github.kelly.core.Controller;
-import com.github.kelly.mvc.HttpMethod;
-import com.github.kelly.mvc.RequestMapping;
+import com.github.kelly.web.HttpMethod;
+import com.github.kelly.web.RequestMapping;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;

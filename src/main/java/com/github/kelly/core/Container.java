@@ -1,6 +1,6 @@
 package com.github.kelly.core;
 
-import com.github.kelly.mvc.*;
+import com.github.kelly.web.*;
 import org.eclipse.jetty.server.Server;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;

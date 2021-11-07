@@ -1,4 +1,4 @@
-package com.github.kelly.mvc;
+package com.github.kelly.web;
 
 public class MvcContext implements Context{
 

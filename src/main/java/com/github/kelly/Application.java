@@ -1,7 +1,7 @@
 package com.github.kelly;
 
 import com.github.kelly.core.ComponentScan;
-import com.github.kelly.mvc.SpringApplication;
+import com.github.kelly.web.SpringApplication;
 
 @ComponentScan(
         basePackage = "com.github.kelly.app"

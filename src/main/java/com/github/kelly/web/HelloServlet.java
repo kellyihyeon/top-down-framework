@@ -1,4 +1,4 @@
-package com.github.kelly.mvc;
+package com.github.kelly.web;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;

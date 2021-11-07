@@ -1,4 +1,4 @@
-package com.github.kelly.mvc;
+package com.github.kelly.web;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -1,4 +1,4 @@
-package com.github.kelly.mvc;
+package com.github.kelly.web;
 
 import com.github.kelly.app.StaticFileController;
 import jakarta.servlet.http.HttpServletRequest;
