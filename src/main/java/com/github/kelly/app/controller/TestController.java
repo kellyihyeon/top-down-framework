@@ -5,6 +5,7 @@ import com.github.kelly.core.HttpMethod;
 import com.github.kelly.core.RequestMapping;
 import com.github.kelly.web.ui.Model;
 import com.github.kelly.web.ui.ModelAndView;
+import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -38,6 +39,39 @@ public class TestController {
 
         return modelAndView;
     }
+
+
+    @RequestMapping(value = "/welcome", method = HttpMethod.GET)
+    public void welcome(HttpServletRequest request, HttpServletResponse response) {
+        String html =
+                "<!DOCTYPE html>\n" +
+                "<html lang=\"en\">\n" +
+                "<head>\n" +
+                "  <meta charset=\"UTF-8\">\n" +
+                "  <title>Welcome Page</title>\n" +
+                "</head>\n" +
+                "<body>\n" +
+                "  <h1>Welcome, anonymous!</h1>\n" +
+                "  <h2>Welcome, anonymous!</h2>\n" +
+                "  <h3>Welcome, anonymous!</h3>\n" +
+                "  <h4>Welcome, anonymous!</h4>\n" +
+                "  <h5>Welcome, anonymous!</h5>\n" +
+                "  <h6>Welcome, anonymous!</h6>\n" +
+                "</body>\n" +
+                "</html>";
+
+        response.setContentType("text/html");
+
+        try {
+            final ServletOutputStream os = response.getOutputStream();
+            os.write(html.getBytes(StandardCharsets.UTF_8));
+            os.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
     @RequestMapping(value = "/hello", method = HttpMethod.GET)
@@ -109,8 +143,5 @@ public class TestController {
         }
     }
 
-    @RequestMapping(value = "/welcome", method = HttpMethod.GET)
-    public void welcome() {
-        System.out.println("welcome method executed.");
-    }
+
 }

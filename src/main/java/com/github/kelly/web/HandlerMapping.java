@@ -2,6 +2,8 @@ package com.github.kelly.web;
 
 import com.github.kelly.core.HttpMethod;
 import com.github.kelly.core.RequestMapping;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -12,8 +14,8 @@ import java.util.Set;
 // This class can not be extended.
 public final class HandlerMapping {
 
-
     private final Map<RequestKey, HandlerExecutor> handlerMapping = new HashMap<>();  // 아무데서나 쓸 수 없게
+    private final Logger log = LoggerFactory.getLogger(HandlerMapping.class);
 
 
 
@@ -26,7 +28,7 @@ public final class HandlerMapping {
                 if (constructor.getParameterCount() == 0) { // 기본 생성자
                     try {
                         instance = constructor.newInstance(null);
-                        System.out.println("controller instance 생성 = " + instance);
+                        log.info("controller instance 생성 = {}", instance);
                     } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
                         e.printStackTrace();
                     }
@@ -40,11 +42,15 @@ public final class HandlerMapping {
 
                     final HttpMethod httpMethod = requestMapping.method();
                     final RequestKey requestKey = new RequestKey(path, httpMethod);
-                    System.out.println(requestKey);
+                    log.info(requestKey.toString());
                     final HandlerExecutor handlerExecutor = new HandlerExecutor(instance, method);
                     handlerMapping.put(requestKey, handlerExecutor);
                 }
             }
         }
+    }
+
+    public HandlerExecutor getHandlerExecutor(RequestKey requestKey) {
+        return handlerMapping.get(requestKey);
     }
 }
