@@ -9,28 +9,29 @@ public class DispatcherServlet {
 
 
     private final Logger logger = LoggerFactory.getLogger(DispatcherServlet.class);
+    private final HandlerMapping handlerMapping;
 
 
-    public DispatcherServlet() {
+    public DispatcherServlet(HandlerMapping handlerMapping) {
+        this.handlerMapping = handlerMapping;
     }
-
 
 
 
     public void doDispatch(HttpServletRequest request, HttpServletResponse response) {
         RequestHandler requestHandler = null;
         // handler 1 = staticFile 처리 담당
-        if (request.getRequestURI().contains(".")) {
-            logger.info("request uri = {}", request.getRequestURI());
-            final StaticFileResolver staticFileResolver = new StaticFileResolver();
-            requestHandler = staticFileResolver.dispatch(request, response);
-        }
-        // handler 2 = userDefine 처리 담당
-        else {
-            logger.info("request uri = {}", request.getRequestURI());
-            final UserDefineResolver userDefineResolver = new UserDefineResolver();
-            requestHandler = userDefineResolver.dispatch(request, response);
-        }
+//        if (request.getRequestURI().contains(".")) {
+//            logger.info("request uri = {}", request.getRequestURI());
+//            final StaticFileResolver staticFileResolver = new StaticFileResolver();
+//            requestHandler = staticFileResolver.dispatch(request, response);
+//        }
+//        // handler 2 = userDefine 처리 담당
+//        else {
+//            logger.info("request uri = {}", request.getRequestURI());
+//            final UserDefineResolver userDefineResolver = new UserDefineResolver();
+//            requestHandler = userDefineResolver.dispatch(request, response);
+//        }
 
         // handler 실행하는 담당
         // >> 응답 주는 class 부터 쓸 것만 남기고 리팩토링 할 것

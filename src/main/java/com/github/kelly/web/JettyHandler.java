@@ -6,25 +6,17 @@ import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.session.SessionHandler;
 
 
-public class HttpHandler extends SessionHandler {
+public class JettyHandler extends SessionHandler {
 
     private final DispatcherServlet dispatcherServlet;
 
-
-
-    public HttpHandler() {
-        this.dispatcherServlet = new DispatcherServlet();
+    public JettyHandler(DispatcherServlet dispatcherServlet) {
+        this.dispatcherServlet = dispatcherServlet;
     }
 
-
     @Override
-    public void doHandle(String target,
-                         Request baseRequest,
-                         HttpServletRequest request,
-                         HttpServletResponse response)
-    {
+    public void doHandle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) {
         dispatcherServlet.doDispatch(request, response);
         baseRequest.setHandled(true);
-
     }
 }
