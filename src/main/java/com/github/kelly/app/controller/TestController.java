@@ -75,6 +75,11 @@ public class TestController {
         }
     }
 
+    @RequestMapping(value = "/noReturnNoParameter", method = HttpMethod.GET)
+    public void sayNo() {
+        System.out.println("return type = void, parameter = null");
+    }
+
 
 
     @RequestMapping(value = "/hello", method = HttpMethod.GET)
