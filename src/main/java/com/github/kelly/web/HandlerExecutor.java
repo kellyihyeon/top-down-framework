@@ -3,21 +3,14 @@ package com.github.kelly.web;
 import com.github.kelly.web.ui.Model;
 import com.samskivert.mustache.Mustache;
 import com.samskivert.mustache.Template;
-import jakarta.servlet.http.HttpServletResponse;
 import org.reflections.Reflections;
-
-import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 public class HandlerExecutor {
@@ -99,14 +92,17 @@ public class HandlerExecutor {
                         }
                     } //
 
+//                    new TemplateRendering(path, map);
+
                     try (
                             final InputStream inputStream = Mustache.class.getResourceAsStream(path.toString().replace("\\", "/"));
                             final BufferedInputStream bis = new BufferedInputStream(inputStream);
                             final ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     ) {
+                        int bufferSize;
                         final byte[] buffer = new byte[4096];
-                        while (bis.read(buffer) != -1) {
-                            baos.write(buffer);
+                        while ((bufferSize = bis.read(buffer)) != -1) {
+                            baos.write(buffer, 0, bufferSize);
                         }
 
                         final String originTemplate = baos.toString(StandardCharsets.UTF_8);

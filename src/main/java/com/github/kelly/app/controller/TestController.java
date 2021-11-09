@@ -31,6 +31,11 @@ public class TestController {
         return "helloString";
     }
 
+    @RequestMapping("/mustache")
+    public void showTemplate(HttpServletResponse response, String template) {
+
+    }
+
     @RequestMapping("/toModelAndView")
     public ModelAndView deliverModelAndView() {
         final ModelAndView modelAndView = new ModelAndView();

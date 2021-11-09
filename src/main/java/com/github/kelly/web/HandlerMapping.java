@@ -4,9 +4,7 @@ import com.github.kelly.core.HttpMethod;
 import com.github.kelly.core.RequestMapping;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.lang.reflect.*;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
