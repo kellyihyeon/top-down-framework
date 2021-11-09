@@ -26,8 +26,9 @@ public class DispatcherServlet {
         if (handlerExecutor != null) {
             // parameters 가 req, rep 일 경우
             handlerExecutor.invoke(request, response);
-//            final ModelImpl model = new ModelImpl();
-//            handlerExecutor.invoke(model);
+
+            // temporary
+            handlerExecutor
 
         } else {
             logger.info("{} 와 연결된 HandlerExecutor 가 없습니다.", requestKey);

@@ -5,20 +5,20 @@ import java.util.Map;
 
 public class ModelImpl implements Model{
 
-    private final Map<String, Object> modelMap = new HashMap<>();
-
+    // static
+    private static final Map<String, Object> modelMap = new HashMap<>();
 
 
     @Override
     public void addAttribute(String attributeName, Object attributeValue) {
-        // model.addAttribute("myName", "Han So Hui");
-        // model.addAttribute("details", "in Netflix");
-        System.out.println("attributeName = " + attributeName);
+        System.out.println("attributeName = " + attributeName + "/  attributeValue = " + attributeValue);
         modelMap.put(attributeName, attributeValue);
+        System.out.println(" ModelImpl 의 modelMap = " + modelMap);
     }
 
     @Override
     public Map<String, Object> getMap() {
+        System.out.println("ModelImpl - getMap 의 modelMap = " + modelMap);
         return modelMap;
     }
 

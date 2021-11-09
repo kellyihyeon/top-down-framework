@@ -22,7 +22,7 @@ public class TestController {
     @RequestMapping("/string")
     public String deliverString(Model model) {
         // String attributeName, Object attributeValue
-        System.out.println("model = " + model);
+        System.out.println("Controller 의 파라미터 model 의 주소값 = " + model);
 
         model.addAttribute("message", "this is object value");
         model.addAttribute("myName", "Han So Hui");
