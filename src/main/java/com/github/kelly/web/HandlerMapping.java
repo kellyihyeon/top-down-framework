@@ -4,9 +4,9 @@ import com.github.kelly.core.HttpMethod;
 import com.github.kelly.core.RequestMapping;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+
+import java.lang.reflect.*;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -22,6 +22,7 @@ public final class HandlerMapping {
     public HandlerMapping(Set<Class<?>> classes) {
         Object instance = null;
 
+        // 기본 생성자를 이용해서 instance 생성
         for (Class<?> controllerClass : classes) {
             final Constructor<?>[] declaredConstructors = controllerClass.getDeclaredConstructors();
             for (Constructor<?> constructor : declaredConstructors) {
@@ -39,11 +40,15 @@ public final class HandlerMapping {
                 if (method.isAnnotationPresent(RequestMapping.class)) {
                     final RequestMapping requestMapping = method.getDeclaredAnnotation(RequestMapping.class);
                     final String path = requestMapping.value();
-
                     final HttpMethod httpMethod = requestMapping.method();
                     final RequestKey requestKey = new RequestKey(path, httpMethod);
                     log.info(requestKey.toString());
+
                     final HandlerExecutor handlerExecutor = new HandlerExecutor(instance, method);
+
+
+
+
                     handlerMapping.put(requestKey, handlerExecutor);
                 }
             }

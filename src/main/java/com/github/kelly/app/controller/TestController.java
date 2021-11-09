@@ -20,12 +20,15 @@ public class TestController {
     private static final Map<String, String> memberRepository = new HashMap<>();
 
     @RequestMapping("/string")
-    public String outString(Model model) {
+    public String deliverString(Model model) {
         // String attributeName, Object attributeValue
+        System.out.println("model = " + model);
+
         model.addAttribute("message", "this is object value");
         model.addAttribute("myName", "Han So Hui");
         model.addAttribute("details", "in Netflix");
-        return "string";
+
+        return "helloString";
     }
 
     @RequestMapping("/toModelAndView")
