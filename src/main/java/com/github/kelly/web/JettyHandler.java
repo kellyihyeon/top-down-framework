@@ -17,6 +17,7 @@ public class JettyHandler extends SessionHandler {
     @Override
     public void doHandle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) {
         dispatcherServlet.doDispatch(request, response);
+
         baseRequest.setHandled(true);
     }
 }

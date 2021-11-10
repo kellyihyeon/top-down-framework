@@ -2,6 +2,7 @@ package com.github.kelly.web;
 
 import com.samskivert.mustache.Mustache;
 import com.samskivert.mustache.Template;
+
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -9,12 +10,21 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 
-public class TemplateRendering {
+public class ViewCompiler {
+
+    private final String filePath;
+    private Object modelMap;
 
 
-    public TemplateRendering(Path path, Object map) {
+    public ViewCompiler(Path path, Object modelMap) {
+        this.filePath = path.toString().replace("\\", "/");
+        this.modelMap = modelMap;
+    }
+
+    public String compile() {
+        String renderedTemplate = "";
         try (
-                final InputStream inputStream = Mustache.class.getResourceAsStream(path.toString().replace("\\", "/"));
+                final InputStream inputStream = Mustache.class.getResourceAsStream(filePath);
                 final BufferedInputStream bis = new BufferedInputStream(inputStream);
                 final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ) {
@@ -29,11 +39,15 @@ public class TemplateRendering {
             final Mustache.Compiler compiler = Mustache.compiler();
             final Template compiledTemplate = compiler.compile(originTemplate);
 
-            final String renderedTemplate = compiledTemplate.execute(map);
+            renderedTemplate = compiledTemplate.execute(modelMap);
             System.out.println("renderedTemplate = " + renderedTemplate);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return renderedTemplate;
     }
+
+
+
 }
