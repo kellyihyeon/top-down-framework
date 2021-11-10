@@ -2,27 +2,27 @@ package com.github.kelly.web;
 
 import com.samskivert.mustache.Mustache;
 import com.samskivert.mustache.Template;
-
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class ViewCompiler {
 
     private final String filePath;
-    private Object modelMap;
+    private final Object modelMap;
 
 
-    public ViewCompiler(Path path, Object modelMap) {
-        this.filePath = path.toString().replace("\\", "/");
+    public ViewCompiler(Object viewName, Object modelMap) {
+        this.filePath = Paths.get("/templates", viewName + ".mustache").toString().replace("\\", "/");;
         this.modelMap = modelMap;
     }
 
     public String compile() {
         String renderedTemplate = "";
+        System.out.println("ViewCompiler - filePath = " + filePath);
         try (
                 final InputStream inputStream = Mustache.class.getResourceAsStream(filePath);
                 final BufferedInputStream bis = new BufferedInputStream(inputStream);

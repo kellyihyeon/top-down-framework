@@ -12,7 +12,6 @@ public class Instantiation {
         for (Constructor<?> declaredConstructor : declaredConstructors) {
             if (declaredConstructor.getParameterCount() == 0) {
                 try {
-                    System.out.println("Instantiation.instantiateWithDefaultConstructor");
                     return declaredConstructor.newInstance();
 
                 } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
