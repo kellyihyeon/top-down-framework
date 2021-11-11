@@ -28,15 +28,21 @@ public class DispatcherServlet {
 
 
     public void doDispatch(HttpServletRequest request, HttpServletResponse response){
+        System.out.println("request = " + request);
+        System.out.println("response = " + response);
         final RequestKey requestKey = extractRequestKeyFromHttpRequest(request);
         final HandlerExecutor handlerExecutor = handlerMapping.getHandlerExecutor(requestKey);
 
         if (handlerExecutor != null) {
             final Object valueOfReturn = handlerExecutor.invoke(request, response);
+            // valueOfReturn = 1. view name 인 경우, 2. 객체인 경우 - 객체를 던져주면 response body 에 던져주면 되잖아.
+
             // return 값이 view name 인 경우
             if (valueOfReturn instanceof String) {
                 System.out.println("valueOfReturn 이 String 인 경우 = " + valueOfReturn);
                 Object modelMap = null;
+                // ex. Model, Object...
+                // model - message: ~~, title: ~~, name: ~~
                 final Object[] methodParameterArgs = handlerExecutor.getMethodParameterArgs();
 
                 for (Object object : methodParameterArgs) {
@@ -92,6 +98,8 @@ public class DispatcherServlet {
                         }
 
                     }
+                } else {
+                    System.out.println("valueOfReturn 값이 null 입니다.");
                 }
             }
 
