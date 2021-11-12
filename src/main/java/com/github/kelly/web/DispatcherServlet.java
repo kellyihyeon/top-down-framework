@@ -16,7 +16,6 @@ import java.util.Map;
 // central dispatcher
 public class DispatcherServlet {
 
-
     private final Logger logger = LoggerFactory.getLogger(DispatcherServlet.class);
     private final HandlerMapping handlerMapping;
 
@@ -35,9 +34,23 @@ public class DispatcherServlet {
 
         if (handlerExecutor != null) {
             final Object valueOfReturn = handlerExecutor.invoke(request, response);
-            // valueOfReturn = 1. view name 인 경우, 2. 객체인 경우 - 객체를 던져주면 response body 에 던져주면 되잖아.
+            // valueOfReturn = 1. null 인 경우, 2. 객체인 경우
+            // 1. null 인 경우 - 다음 액션으로 아무것도 취하지 않으면 됨
+            // 2. 객체인 경우 - String(view name or not), ModelAndView, etc Object
 
-            // return 값이 view name 인 경우
+            final Object[] parameterArgs = handlerExecutor.getMethodParameterArgs();
+            // parameterArgs 가 Model 인 경우
+
+
+            if (valueOfReturn != null) {
+                // String - 1.return 값이 view name 인지 확인
+                final ViewCompiler compiler = new ViewCompiler(valueOfReturn);
+                if (compiler.support()) {   // valueOfReturn 이 view name 인 경우
+                    final String renderedTemplate = compiler.compile2(parameterArgs);    // model map 넣어줘야 함
+                }
+            }
+
+            // String - 1.return 값이 view name 인 경우
             if (valueOfReturn instanceof String) {
                 System.out.println("valueOfReturn 이 String 인 경우 = " + valueOfReturn);
                 Object modelMap = null;
